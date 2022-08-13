@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,8 +6,9 @@ dataSources:
     name: Bipsea
     network: goerli
     source:
-      address: "0x736CbEcDBfc7BE68d5C1787cc5D9E253A32aEA44"
       abi: Bipsea
+      address: "0x736CbEcDBfc7BE68d5C1787cc5D9E253A32aEA44"
+      startBlock: 7394947
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
