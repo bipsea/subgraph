@@ -53,19 +53,27 @@ export function handleSell(event: Sell): void {
 }
 
 export function handleWithdraw(event: Withdraw): void {
-  let sellerWithdraw = new Withdrawal(event.transaction.hash.toHex() + "-" + event.params._sellerAddress.toHexString() + "-" + event.params._sellerAmount.toHexString());
-  sellerWithdraw.to = event.params._sellerAddress;
-  sellerWithdraw.amount = event.params._sellerAmount;
-  sellerWithdraw.transactionHash = event.transaction.hash;
-  sellerWithdraw.blockNumber = event.block.number;
-  sellerWithdraw.timestamp = event.block.timestamp;
-  sellerWithdraw.save();
+  let seller = new Withdrawal(event.transaction.hash.toHex() + "-" + event.params._sellerAddress.toHexString() + "-" + event.params._sellerAmount.toHexString());
+  seller.to = event.params._sellerAddress;
+  seller.amount = event.params._sellerAmount;
+  seller.transactionHash = event.transaction.hash;
+  seller.blockNumber = event.block.number;
+  seller.timestamp = event.block.timestamp;
+  seller.save();
 
   let sellerAddress = Balance.load(event.params._sellerAddress.toHexString());
   if (sellerAddress != null) {
     sellerAddress.balance = Bipsea.bind(event.address).balances(event.params._sellerAddress);
     sellerAddress.save();
   }
+
+  let withdrawer = new Withdrawal(event.transaction.hash.toHex() + "-" + event.params._withdrawerAddress.toHexString() + "-" + event.params._withdrawerAmount.toHexString());
+  withdrawer.to = event.params._withdrawerAddress;
+  withdrawer.amount = event.params._withdrawerAmount;
+  withdrawer.transactionHash = event.transaction.hash;
+  withdrawer.blockNumber = event.block.number;
+  withdrawer.timestamp = event.block.timestamp;
+  withdrawer.save();
 
   let withdrawerAddress = Balance.load(event.params._withdrawerAddress.toHexString());
   if (withdrawerAddress != null) {
