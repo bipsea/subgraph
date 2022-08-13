@@ -1,0 +1,35 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Bipsea
+    network: goerli
+    source:
+      address: "0x736CbEcDBfc7BE68d5C1787cc5D9E253A32aEA44"
+      abi: Bipsea
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Buy
+        - Delist
+        - Relist
+        - Sell
+        - Withdraw
+      abis:
+        - name: Bipsea
+          file: ./abis/Bipsea.json
+      eventHandlers:
+        - event: Buy(indexed uint256,indexed address,uint256)
+          handler: handleBuy
+        - event: Delist(indexed uint64,indexed address)
+          handler: handleDelist
+        - event: Relist(indexed uint64,indexed address)
+          handler: handleRelist
+        - event: Sell(uint256)
+          handler: handleSell
+        - event: Withdraw(indexed address,uint256,address,uint256)
+          handler: handleWithdraw
+      file: ./src/bipsea.ts
