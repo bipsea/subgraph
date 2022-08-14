@@ -1,4 +1,4 @@
-# Bipsea subgraph
+# Subgraph
 
 ## Subgraphs
 
