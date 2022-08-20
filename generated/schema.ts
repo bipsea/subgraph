@@ -87,15 +87,6 @@ export class Item extends Entity {
     this.set("price", Value.fromBigInt(value));
   }
 
-  get canBuy(): boolean {
-    let value = this.get("canBuy");
-    return value!.toBoolean();
-  }
-
-  set canBuy(value: boolean) {
-    this.set("canBuy", Value.fromBoolean(value));
-  }
-
   get transactionHash(): Bytes {
     let value = this.get("transactionHash");
     return value!.toBytes();

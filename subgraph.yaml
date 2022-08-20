@@ -7,8 +7,8 @@ dataSources:
     network: goerli
     source:
       abi: Bipsea
-      address: "0x736CbEcDBfc7BE68d5C1787cc5D9E253A32aEA44"
-      startBlock: 7394947
+      address: "0xA95AA7C79852E3dE0dB4f7Bf87A6dD7249f5737A"
+      startBlock: 7441591
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -16,7 +16,6 @@ dataSources:
       entities:
         - Buy
         - Delist
-        - Relist
         - Sell
         - Withdraw
       abis:
@@ -27,8 +26,6 @@ dataSources:
           handler: handleBuy
         - event: Delist(indexed uint64,indexed address)
           handler: handleDelist
-        - event: Relist(indexed uint64,indexed address)
-          handler: handleRelist
         - event: Sell(uint256)
           handler: handleSell
         - event: Withdraw(indexed address,uint256,address,uint256)

@@ -58,28 +58,6 @@ export class Delist__Params {
   }
 }
 
-export class Relist extends ethereum.Event {
-  get params(): Relist__Params {
-    return new Relist__Params(this);
-  }
-}
-
-export class Relist__Params {
-  _event: Relist;
-
-  constructor(event: Relist) {
-    this._event = event;
-  }
-
-  get _itemId(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
-  }
-
-  get _seller(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-}
-
 export class Sell extends ethereum.Event {
   get params(): Sell__Params {
     return new Sell__Params(this);
@@ -133,20 +111,17 @@ export class Bipsea__itemsResult {
   value1: Address;
   value2: string;
   value3: BigInt;
-  value4: boolean;
 
   constructor(
     value0: Address,
     value1: Address,
     value2: string,
-    value3: BigInt,
-    value4: boolean
+    value3: BigInt
   ) {
     this.value0 = value0;
     this.value1 = value1;
     this.value2 = value2;
     this.value3 = value3;
-    this.value4 = value4;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
@@ -155,7 +130,6 @@ export class Bipsea__itemsResult {
     map.set("value1", ethereum.Value.fromAddress(this.value1));
     map.set("value2", ethereum.Value.fromString(this.value2));
     map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
-    map.set("value4", ethereum.Value.fromBoolean(this.value4));
     return map;
   }
 
@@ -173,10 +147,6 @@ export class Bipsea__itemsResult {
 
   getPrice(): BigInt {
     return this.value3;
-  }
-
-  getCanBuy(): boolean {
-    return this.value4;
   }
 }
 
@@ -207,7 +177,7 @@ export class Bipsea extends ethereum.SmartContract {
   items(param0: BigInt): Bipsea__itemsResult {
     let result = super.call(
       "items",
-      "items(uint256):(address,address,string,uint256,bool)",
+      "items(uint256):(address,address,string,uint256)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
@@ -215,15 +185,14 @@ export class Bipsea extends ethereum.SmartContract {
       result[0].toAddress(),
       result[1].toAddress(),
       result[2].toString(),
-      result[3].toBigInt(),
-      result[4].toBoolean()
+      result[3].toBigInt()
     );
   }
 
   try_items(param0: BigInt): ethereum.CallResult<Bipsea__itemsResult> {
     let result = super.tryCall(
       "items",
-      "items(uint256):(address,address,string,uint256,bool)",
+      "items(uint256):(address,address,string,uint256)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
     if (result.reverted) {
@@ -235,10 +204,24 @@ export class Bipsea extends ethereum.SmartContract {
         value[0].toAddress(),
         value[1].toAddress(),
         value[2].toString(),
-        value[3].toBigInt(),
-        value[4].toBoolean()
+        value[3].toBigInt()
       )
     );
+  }
+
+  owner(): Address {
+    let result = super.call("owner", "owner():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_owner(): ethereum.CallResult<Address> {
+    let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   purchase(param0: BigInt, param1: Address): boolean {
@@ -260,6 +243,32 @@ export class Bipsea extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+}
+
+export class ConstructorCall extends ethereum.Call {
+  get inputs(): ConstructorCall__Inputs {
+    return new ConstructorCall__Inputs(this);
+  }
+
+  get outputs(): ConstructorCall__Outputs {
+    return new ConstructorCall__Outputs(this);
+  }
+}
+
+export class ConstructorCall__Inputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class ConstructorCall__Outputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
   }
 }
 
@@ -323,36 +332,6 @@ export class DelistCall__Outputs {
   }
 }
 
-export class RelistCall extends ethereum.Call {
-  get inputs(): RelistCall__Inputs {
-    return new RelistCall__Inputs(this);
-  }
-
-  get outputs(): RelistCall__Outputs {
-    return new RelistCall__Outputs(this);
-  }
-}
-
-export class RelistCall__Inputs {
-  _call: RelistCall;
-
-  constructor(call: RelistCall) {
-    this._call = call;
-  }
-
-  get _itemId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-}
-
-export class RelistCall__Outputs {
-  _call: RelistCall;
-
-  constructor(call: RelistCall) {
-    this._call = call;
-  }
-}
-
 export class SellCall extends ethereum.Call {
   get inputs(): SellCall__Inputs {
     return new SellCall__Inputs(this);
@@ -395,6 +374,36 @@ export class SellCall__Outputs {
   _call: SellCall;
 
   constructor(call: SellCall) {
+    this._call = call;
+  }
+}
+
+export class SetOwnerCall extends ethereum.Call {
+  get inputs(): SetOwnerCall__Inputs {
+    return new SetOwnerCall__Inputs(this);
+  }
+
+  get outputs(): SetOwnerCall__Outputs {
+    return new SetOwnerCall__Outputs(this);
+  }
+}
+
+export class SetOwnerCall__Inputs {
+  _call: SetOwnerCall;
+
+  constructor(call: SetOwnerCall) {
+    this._call = call;
+  }
+
+  get _newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetOwnerCall__Outputs {
+  _call: SetOwnerCall;
+
+  constructor(call: SetOwnerCall) {
     this._call = call;
   }
 }

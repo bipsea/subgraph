@@ -1,5 +1,6 @@
+import { store } from "@graphprotocol/graph-ts";
 import { BigInt } from "@graphprotocol/graph-ts";
-import { Bipsea, Buy, Sell, Withdraw, Delist, Relist } from "../generated/Bipsea/Bipsea";
+import { Bipsea, Buy, Sell, Withdraw, Delist } from "../generated/Bipsea/Bipsea";
 import { Item, Purchase, Withdrawal, Balance } from "../generated/schema";
 
 export function handleBuy(event: Buy): void {
@@ -44,7 +45,6 @@ export function handleSell(event: Sell): void {
   sell.investor = Bipsea.bind(event.address).items(event.params._itemId).value1;
   sell.uri = Bipsea.bind(event.address).items(event.params._itemId).value2;
   sell.price = Bipsea.bind(event.address).items(event.params._itemId).value3;
-  sell.canBuy = true;
   sell.transactionHash = event.transaction.hash;
   sell.blockNumber = event.block.number;
   sell.timestamp = event.block.timestamp;
@@ -83,17 +83,6 @@ export function handleWithdraw(event: Withdraw): void {
 }
 
 export function handleDelist(event: Delist): void {
-  let item = Item.load(event.params._itemId.toHexString());
-  if (item != null) {
-    item.canBuy = false;
-    item.save();
-  }
-}
-
-export function handleRelist(event: Relist): void {
-  let item = Item.load(event.params._itemId.toHexString());
-  if (item != null) {
-    item.canBuy = true;
-    item.save();
-  }
+  // https://thegraph.com/docs/en/developing/assemblyscript-api/#removing-entities-from-the-store
+  store.remove("Item", event.params._itemId.toHexString());
 }

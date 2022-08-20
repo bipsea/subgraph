@@ -2,7 +2,7 @@
 
 ## Subgraphs
 
-https://api.studio.thegraph.com/query/5210/bipsea-goerli/v0.0.4/graphql?query=query+MyQuery+%7B%0A++balances%28first%3A+10%29+%7B%0A++++address%0A++++balance%0A++%7D%0A++items+%7B%0A++++blockNumber%0A++++canBuy%0A++++itemId%0A++++investor%0A++++price%0A++++seller%0A++++sold%0A++++timestamp%0A++++transactionHash%0A++++uri%0A++%7D%0A++purchases%28first%3A+10%29+%7B%0A++++amount%0A++++blockNumber%0A++++buyer%0A++++itemId%0A++++timestamp%0A++++transactionHash%0A++%7D%0A++withdrawals%28first%3A+10%29+%7B%0A++++amount%0A++++blockNumber%0A++++timestamp%0A++++to%0A++++transactionHash%0A++%7D%0A%7D
+https://api.studio.thegraph.com/query/5210/bipsea-goerli/v0.0.7/graphql?query=query+MyQuery+%7B%0A++balances%28first%3A+10%29+%7B%0A++++address%0A++++balance%0A++%7D%0A++items+%7B%0A++++blockNumber%0A++++itemId%0A++++investor%0A++++price%0A++++seller%0A++++sold%0A++++timestamp%0A++++transactionHash%0A++++uri%0A++%7D%0A++purchases%28first%3A+10%29+%7B%0A++++amount%0A++++blockNumber%0A++++buyer%0A++++itemId%0A++++timestamp%0A++++transactionHash%0A++%7D%0A++withdrawals%28first%3A+10%29+%7B%0A++++amount%0A++++blockNumber%0A++++timestamp%0A++++to%0A++++transactionHash%0A++%7D%0A%7D
 
 ## Build and Deploy
 
