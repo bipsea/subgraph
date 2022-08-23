@@ -76,52 +76,25 @@ export class Sell__Params {
   }
 }
 
-export class Withdraw extends ethereum.Event {
-  get params(): Withdraw__Params {
-    return new Withdraw__Params(this);
-  }
-}
-
-export class Withdraw__Params {
-  _event: Withdraw;
-
-  constructor(event: Withdraw) {
-    this._event = event;
-  }
-
-  get _sellerAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get _sellerAmount(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get _withdrawerAddress(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get _withdrawerAmount(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
-  }
-}
-
 export class Bipsea__itemsResult {
   value0: Address;
   value1: Address;
   value2: string;
   value3: BigInt;
+  value4: boolean;
 
   constructor(
     value0: Address,
     value1: Address,
     value2: string,
-    value3: BigInt
+    value3: BigInt,
+    value4: boolean
   ) {
     this.value0 = value0;
     this.value1 = value1;
     this.value2 = value2;
     this.value3 = value3;
+    this.value4 = value4;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
@@ -130,6 +103,7 @@ export class Bipsea__itemsResult {
     map.set("value1", ethereum.Value.fromAddress(this.value1));
     map.set("value2", ethereum.Value.fromString(this.value2));
     map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
+    map.set("value4", ethereum.Value.fromBoolean(this.value4));
     return map;
   }
 
@@ -148,6 +122,10 @@ export class Bipsea__itemsResult {
   getPrice(): BigInt {
     return this.value3;
   }
+
+  getCanBuy(): boolean {
+    return this.value4;
+  }
 }
 
 export class Bipsea extends ethereum.SmartContract {
@@ -155,29 +133,10 @@ export class Bipsea extends ethereum.SmartContract {
     return new Bipsea("Bipsea", address);
   }
 
-  balances(param0: Address): BigInt {
-    let result = super.call("balances", "balances(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-
-    return result[0].toBigInt();
-  }
-
-  try_balances(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("balances", "balances(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   items(param0: BigInt): Bipsea__itemsResult {
     let result = super.call(
       "items",
-      "items(uint256):(address,address,string,uint256)",
+      "items(uint256):(address,address,string,uint256,bool)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
@@ -185,14 +144,15 @@ export class Bipsea extends ethereum.SmartContract {
       result[0].toAddress(),
       result[1].toAddress(),
       result[2].toString(),
-      result[3].toBigInt()
+      result[3].toBigInt(),
+      result[4].toBoolean()
     );
   }
 
   try_items(param0: BigInt): ethereum.CallResult<Bipsea__itemsResult> {
     let result = super.tryCall(
       "items",
-      "items(uint256):(address,address,string,uint256)",
+      "items(uint256):(address,address,string,uint256,bool)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
     if (result.reverted) {
@@ -204,7 +164,8 @@ export class Bipsea extends ethereum.SmartContract {
         value[0].toAddress(),
         value[1].toAddress(),
         value[2].toString(),
-        value[3].toBigInt()
+        value[3].toBigInt(),
+        value[4].toBoolean()
       )
     );
   }
@@ -404,36 +365,6 @@ export class SetOwnerCall__Outputs {
   _call: SetOwnerCall;
 
   constructor(call: SetOwnerCall) {
-    this._call = call;
-  }
-}
-
-export class WithdrawCall extends ethereum.Call {
-  get inputs(): WithdrawCall__Inputs {
-    return new WithdrawCall__Inputs(this);
-  }
-
-  get outputs(): WithdrawCall__Outputs {
-    return new WithdrawCall__Outputs(this);
-  }
-}
-
-export class WithdrawCall__Inputs {
-  _call: WithdrawCall;
-
-  constructor(call: WithdrawCall) {
-    this._call = call;
-  }
-
-  get _sellerAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class WithdrawCall__Outputs {
-  _call: WithdrawCall;
-
-  constructor(call: WithdrawCall) {
     this._call = call;
   }
 }

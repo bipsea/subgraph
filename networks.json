@@ -1,8 +1,8 @@
 {
   "goerli": {
     "Bipsea": {
-      "address": "0xA95AA7C79852E3dE0dB4f7Bf87A6dD7249f5737A",
-      "startBlock": 7441591
+      "address": "0x29D3577a2508fa7AC7ef3bc95e56Ba9748C95a29",
+      "startBlock": 7454893
     }
   }
 }

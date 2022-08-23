@@ -21,15 +21,6 @@ type Purchase @entity {
   timestamp: BigInt!
 }
 
-type Withdrawal @entity {
-  id: ID!
-  to: Bytes!
-  amount: BigInt!
-  transactionHash: Bytes!
-  blockNumber: BigInt!
-  timestamp: BigInt!
-}
-
 type Balance @entity {
   id: ID!
   address: Bytes!

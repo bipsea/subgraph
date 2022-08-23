@@ -7,8 +7,8 @@ dataSources:
     network: goerli
     source:
       abi: Bipsea
-      address: "0xA95AA7C79852E3dE0dB4f7Bf87A6dD7249f5737A"
-      startBlock: 7441591
+      address: "0x29D3577a2508fa7AC7ef3bc95e56Ba9748C95a29"
+      startBlock: 7454893
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -17,17 +17,14 @@ dataSources:
         - Buy
         - Delist
         - Sell
-        - Withdraw
       abis:
         - name: Bipsea
           file: ./abis/Bipsea.json
       eventHandlers:
         - event: Buy(indexed uint256,indexed address,uint256)
           handler: handleBuy
-        - event: Delist(indexed uint64,indexed address)
+        - event: Delist(indexed uint256,indexed address)
           handler: handleDelist
         - event: Sell(uint256)
           handler: handleSell
-        - event: Withdraw(indexed address,uint256,address,uint256)
-          handler: handleWithdraw
       file: ./src/bipsea.ts
