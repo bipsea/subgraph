@@ -1,0 +1,7 @@
+[
+  {
+    "chain": "goerli",
+    "uri": "https://api.studio.thegraph.com/query/5210/bipsea-goerli/v0.0.8",
+    "currency": "ETH"
+  }
+]
