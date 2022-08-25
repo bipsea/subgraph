@@ -122,6 +122,15 @@ export class Item extends Entity {
   set sold(value: BigInt) {
     this.set("sold", Value.fromBigInt(value));
   }
+
+  get canBuy(): boolean {
+    let value = this.get("canBuy");
+    return value!.toBoolean();
+  }
+
+  set canBuy(value: boolean) {
+    this.set("canBuy", Value.fromBoolean(value));
+  }
 }
 
 export class Purchase extends Entity {

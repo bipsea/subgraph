@@ -7,8 +7,8 @@ dataSources:
     network: goerli
     source:
       abi: Bipsea
-      address: "0x29D3577a2508fa7AC7ef3bc95e56Ba9748C95a29"
-      startBlock: 7454893
+      address: "0x71Cf545bbb6558471409e91d1099463055b8cFDa"
+      startBlock: 7467380
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -17,6 +17,7 @@ dataSources:
         - Buy
         - Delist
         - Sell
+        - Revenue
       abis:
         - name: Bipsea
           file: ./abis/Bipsea.json
@@ -27,4 +28,6 @@ dataSources:
           handler: handleDelist
         - event: Sell(uint256)
           handler: handleSell
+        - event: Revenue(indexed uint256,indexed address,uint256)
+          handler: handleRevenue
       file: ./src/bipsea.ts

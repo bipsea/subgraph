@@ -9,6 +9,7 @@ type Item @entity {
   blockNumber: BigInt!
   timestamp: BigInt!
   sold: BigInt!
+  canBuy: Boolean!
 }
 
 type Purchase @entity {
