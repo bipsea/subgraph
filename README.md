@@ -9,6 +9,7 @@ https://api.studio.thegraph.com/query/5210/bipsea-goerli/v0.0.25/graphql?query=q
 ```bash
 yarn codegen && yarn build --network goerli && yarn deploy:goerli
 yarn codegen && yarn build --network matic && yarn deploy:matic
+yarn codegen && yarn build --network optimism && yarn deploy:optimism
 ```
 
 ## Adding Networks
