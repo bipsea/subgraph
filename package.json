@@ -1,10 +1,11 @@
 {
   "name": "bipsea",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
     "deploy:goerli": "graph deploy --node https://api.studio.thegraph.com/deploy/ --network goerli bipsea-goerli",
+    "deploy:matic": "graph deploy --product hosted-service leon-do/bipsea-matic --network matic",
     "create-local": "graph create --node http://localhost:8020/ bipsea",
     "remove-local": "graph remove --node http://localhost:8020/ bipsea",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 bipsea"

@@ -4,5 +4,11 @@
       "address": "0x71Cf545bbb6558471409e91d1099463055b8cFDa",
       "startBlock": 7467380
     }
+  },
+  "matic": {
+    "Bipsea": {
+      "address": "0x6EAD5f8AD8B6A277e452a32Cf4fd2F0a27C343B7",
+      "startBlock": 33018465
+    }
   }
 }
