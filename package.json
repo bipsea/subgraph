@@ -7,6 +7,7 @@
     "deploy:goerli": "graph deploy --product hosted-service leon-do/bipsea-goerli --network goerli",
     "deploy:matic": "graph deploy --product hosted-service leon-do/bipsea-matic --network matic",
     "deploy:optimism": "graph deploy --product hosted-service leon-do/bipsea-optimism --network optimism",
+    "deploy:harmony": "graph deploy --product hosted-service leon-do/bipsea-harmony --network harmony",
     "create-local": "graph create --node http://localhost:8020/ bipsea",
     "remove-local": "graph remove --node http://localhost:8020/ bipsea",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 bipsea"

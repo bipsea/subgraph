@@ -16,5 +16,11 @@
       "address": "0xe862EC3D0c14f8545668D75975375C61316b1156",
       "startBlock": 22874817
     }
+  },
+  "harmony": {
+    "Bipsea": {
+      "address": "0xe862EC3D0c14f8545668D75975375C61316b1156",
+      "startBlock": 31600110
+    }
   }
 }

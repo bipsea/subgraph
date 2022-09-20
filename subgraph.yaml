@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: Bipsea
-    network: optimism
+    network: harmony
     source:
       abi: Bipsea
       address: "0xe862EC3D0c14f8545668D75975375C61316b1156"
-      startBlock: 22874817
+      startBlock: 31600110
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
